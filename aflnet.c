@@ -2789,7 +2789,7 @@ unsigned int* extract_response_codes_modbus(unsigned char* buf, unsigned int buf
     unsigned int func_code = buf[offset + 7];
 
     state_count++;
-    state_sequence = (unsigned int *)realloc(state_sequence, state_count * sizeof(unsigned int));
+    state_sequence = (unsigned int *)ck_realloc(state_sequence, state_count * sizeof(unsigned int));
     state_sequence[state_count - 1] = func_code;
 
     offset += msg_len;
@@ -2819,7 +2819,7 @@ region_t* extract_requests_modbus(unsigned char* buf, unsigned int buf_size, uns
     if (offset + msg_len > buf_size) break;
 
     region_count++;
-    regions = (region_t *)realloc(regions, region_count * sizeof(region_t));
+    regions = (region_t *)ck_realloc(regions, region_count * sizeof(region_t));
     regions[region_count - 1].start_byte = offset;
     regions[region_count - 1].end_byte = offset + msg_len - 1;
     regions[region_count - 1].modifiable = 1;
