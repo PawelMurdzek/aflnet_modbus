@@ -2778,6 +2778,10 @@ unsigned int* extract_response_codes_modbus(unsigned char* buf, unsigned int buf
   unsigned int state_count = 0;
   unsigned int offset = 0;
 
+  state_count++;
+  state_sequence = (unsigned int *)ck_realloc(state_sequence, state_count * sizeof(unsigned int));
+  state_sequence[state_count - 1] = 0;
+
   while (offset + 8 <= buf_size) {
     // Read MBAP header length field (bytes 4-5, big-endian)
     unsigned int pdu_len = (buf[offset + 4] << 8) | buf[offset + 5];

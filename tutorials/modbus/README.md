@@ -60,9 +60,26 @@ afl-fuzz -d -i $WORKDIR/in-modbus -o out-modbus -N tcp://127.0.0.1/1502 -P MODBU
 
 **Note:** The `unit-test-server` takes an argument `tcp` to start in TCP mode. It listens on `127.0.0.1:1502` by default.
 
+
+## Docker Support
+
+We have provided a `Dockerfile` to simplify the process of setting up the environment.
+
+1.  **Build the Docker image** (from the root of the repository):
+    ```bash
+    docker build -f tutorials/modbus/Dockerfile -t aflnet-modbus .
+    ```
+
+2.  **Run the fuzzer**:
+    ```bash
+    docker run -it aflnet-modbus
+    ```
+
+    This will automatically start fuzzing the Modbus server with the generated seeds.
+
 ## Cleanup
 
-To clean up the generated files and directories, you can use the provided script:
+To clean up the generated files and directories (if running locally without Docker), you can use the provided script:
 
 ```bash
 $AFLNET/tutorials/modbus/clean.sh
