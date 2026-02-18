@@ -448,6 +448,9 @@ void setup_ipsm()
 
   state_ids = (u32 *) ck_alloc(sizeof(u32));
   state_ids[state_ids_count++] = 0;
+
+  //Add the initial state to the graph as well
+  agnode(ipsm, "0", TRUE);
 }
 
 /* Free memory allocated to state-machine variables */
@@ -478,6 +481,9 @@ void expand_was_fuzzed_map(u32 new_states, u32 new_qentries) {
   int i, j;
   //Realloc the memory
   was_fuzzed_map = (char **)ck_realloc(was_fuzzed_map, (fuzzed_map_states + new_states) * sizeof(char *));
+  for (i = fuzzed_map_states; i < fuzzed_map_states + new_states; i++)
+    was_fuzzed_map[i] = NULL;
+
   for (i = 0; i < fuzzed_map_states + new_states; i++)
     was_fuzzed_map[i] = (char *)ck_realloc(was_fuzzed_map[i], (fuzzed_map_qentries + new_qentries) * sizeof(char));
 

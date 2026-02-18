@@ -60,4 +60,6 @@ RUN python3 /opt/aflnet/tutorials/modbus/create_seed.py /root/in-modbus
 WORKDIR /root/libmodbus/tests
 
 # Default command to run the fuzzer
-CMD ["/opt/aflnet/afl-fuzz", "-d", "-i", "/root/in-modbus", "-o", "/root/out-modbus", "-N", "tcp://127.0.0.1/1502", "-P", "MODBUS", "-D", "10000", "-q", "3", "-s", "3", "-E", "-R", "./unit-test-server", "tcp"]
+CMD ["/bin/bash"]
+# Actual command:
+# /opt/aflnet/afl-fuzz -d -i /root/in-modbus -o /root/out-modbus -N tcp://127.0.0.1/1502 -P MODBUS -D 100000 -t 2000 -q 3 -s 3 -E -R ./unit-test-server tcp

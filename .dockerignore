@@ -1,0 +1,10 @@
+.git
+Dockerfile
+Dockerfile.local
+.vscode
+.idea
+*.tmp
+*.log
+out_dir
+replayable-crashes
+replayable-hangs
