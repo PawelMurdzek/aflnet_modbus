@@ -2802,7 +2802,7 @@ unsigned int* extract_response_codes_modbus(unsigned char* buf, unsigned int buf
   // If no valid messages found, return a default state
   if (state_count == 0 && buf_size >= 8) {
     state_count = 1;
-    state_sequence = (unsigned int *)malloc(sizeof(unsigned int));
+    state_sequence = (unsigned int *)ck_alloc(sizeof(unsigned int));
     state_sequence[0] = buf[7];
   }
 
@@ -2836,7 +2836,7 @@ region_t* extract_requests_modbus(unsigned char* buf, unsigned int buf_size, uns
   // If no valid regions found, treat entire buffer as one region
   if (region_count == 0 && buf_size > 0) {
     region_count = 1;
-    regions = (region_t *)malloc(sizeof(region_t));
+    regions = (region_t *)ck_alloc(sizeof(region_t));
     regions[0].start_byte = 0;
     regions[0].end_byte = buf_size - 1;
     regions[0].modifiable = 1;
