@@ -17,7 +17,8 @@ cd libmodbus
 
 # Build libmodbus and the test server
 ./autogen.sh
-./configure --enable-static
+# Note: Use CC=afl-clang-fast or CC=afl-gcc to correctly instrument the target
+CC=afl-clang-fast ./configure --enable-static --disable-shared
 make
 
 # The server executable is located at tests/unit-test-server
