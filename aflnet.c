@@ -2427,6 +2427,8 @@ klist_t(lms) *construct_kl_messages(u8* fname, region_t *regions, u32 region_cou
     m->mdata = (char *) ck_alloc(len);
     m->msize = len;
     if (m->mdata == NULL) PFATAL("Unable to allocate memory region to store new message");
+    //Seek to the correct offset — regions may not be contiguous after mutation
+    fseek(fseed, regions[i].start_byte, SEEK_SET);
     fread(m->mdata, 1, len, fseed);
 
     //Insert the message to the linked list
