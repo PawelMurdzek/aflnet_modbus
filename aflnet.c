@@ -2785,6 +2785,11 @@ unsigned int* extract_response_codes_modbus(unsigned char* buf, unsigned int buf
   while (offset + 8 <= buf_size) {
     // Read MBAP header length field (bytes 4-5, big-endian)
     unsigned int pdu_len = (buf[offset + 4] << 8) | buf[offset + 5];
+
+    // Validate PDU length against remaining buffer to prevent
+    // trusting attacker-controlled length values
+    if (pdu_len == 0 || pdu_len > buf_size - offset - 6) break;
+
     unsigned int msg_len = 6 + pdu_len; // MBAP header (6) + PDU
 
     if (offset + msg_len > buf_size) break;
